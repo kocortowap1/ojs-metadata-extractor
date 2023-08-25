@@ -16,7 +16,7 @@
   <header class="text-center px-4 py-4 mb-2" style="background: #00264d; color:antiquewhite;">
     <h1>OJS Metadata Extractor</h1>
   </header>
-  <div class="container mx-auto max-w-full px-6 md:py-4">
+  <div class="container-fluid mx-auto max-w-full px-6 md:py-4">
     <form class="mx-auto  w-75 px-6 justify-items-center" id="form-input" onsubmit="onSubmitUrl(event)">
       <div class="mb-4">
         <div class="input-group">
@@ -145,7 +145,7 @@
           </div>
         </div>
 
-        <div class="row mb-1">
+        <!-- <div class="row mb-1">
           <label for="citation_index" class="col-12 col-sm-2 col-form-label">URL INDEX </label>
           <div class="col-12 col-sm-10">
             <div class="input-group">
@@ -155,7 +155,7 @@
                   class="bi bi-clipboard"></i></button>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="row mb-1">
           <label for="citation_date" class="col-12 col-sm-2 col-form-label">Tanggal</label>
           <div class="col-12 col-sm-10">
@@ -173,14 +173,14 @@
         <div class="card">
           <h5 class="card-header">Artikel Index</h5>
           <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <h5 class="card-title">Fitur ini akan segera hadir</h5>
+            <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
           </div>
         </div>
         <div class="card mt-md-3">
           <h5 class="card-header">DATA ARJUNA</h5>
-          <div class="card-body">
+          <div class="card-body" id="history-akreditasi">
             <h5 class="card-title">Special title treatment</h5>
             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
@@ -211,6 +211,7 @@
     const clipboard = new ClipboardJS('.btn-dark');
 
     clipboard.on('success', function (e) {
+
       e.clearSelection();
     });
 
@@ -228,10 +229,15 @@
           for (const key in data['metadata']) {
             document.getElementById(key).value = data['metadata'][key]
           }
+          //force doi URL
+          document.getElementById('citation_doi').value = `https://doi.org/${data['metadata']['citation_doi']}`
+          //force date format
+
+          document.getElementById('citation_date').value = indonesianDate(data['metadata']['citation_date'])
           if (data['history_akreditasi'].length) {
             const objLastAkreditasi = filterLastAcreditation(data['history_akreditasi'])
             document.getElementById('citation_publisher').value = objLastAkreditasi['publisher']
-
+            createAkreditasiList(data['history_akreditasi'])
           }
         } else {
           alert(data['message'])
@@ -272,7 +278,42 @@
             return next;
           }
         })
+      }else{
+        return arrAccreditation[0]
       }
+    }
+    function indonesianDate(dateString) {
+      const newDate = new Date(dateString)
+      return newDate.toLocaleDateString('id-ID', {
+        year: "numeric",
+        month: "long",
+        day: "2-digit"
+      })
+    }
+    function createAkreditasiList(data) {
+      let el = ''
+      if (!!data.length) {
+        el += `<div class="accordion" id="list-akreditasi">`
+        let i = 1;
+        data.forEach(l => {
+          el += `<div class="accordion-item">`
+          el += `<h2 class="accordion-header" id="heading-${i}">`
+          el += `<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${i}" aria-expanded="true" aria-controls="collapse-${i}">${l['nama_jurnal']}</button>`
+          el += `</h2">`
+          el += `<div id="collapse-${i}" class="accordion-collapse collapse" aria-labelledby="heading-${i}" data-bs-parent="#history-akreditasi">
+      <div class="accordion-body">
+        <p class="text-sm">Tanggal : ${indonesianDate(l['tgl_created'])}</p>
+        <p class="text-sm">Publisher : ${l['publisher']}</p>
+      </div>
+    </div>`
+          el += `</div>`
+          i++
+        });
+        el += `</div>`
+      } else {
+        el += `<h3 class="text-danger">Tidak ada History Akreditasi pada Jurnal ini</h3>`
+      }
+      document.getElementById('history-akreditasi').innerHTML = el
     }
   </script>
 </body>
