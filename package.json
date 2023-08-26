@@ -2,6 +2,8 @@
   "name": "express-ojs-meta",
   "version": "0.0.0",
   "private": true,
+  "main" : "./bin/www",
+  "bin" : "./bin/www",
   "scripts": {
     "start": "nodemon ./bin/www"
   },
@@ -16,9 +18,8 @@
     "node-html-parser": "^6.1.6"
   },
   "pkg": {
-    "scripts": "build/**/*.js",
-    "assets": "views/**/*",
-    "targets": [ "node14-linux-arm64" ],
+    "assets": ["public/**/*","views/**/*","routes/**/*", "node_modules/**/axios/dist/node/axios.cjs", "bin/**/*"],
+    "targets": [ "node16-win-x64" ],
     "outputPath": "dist"
   }
 }
