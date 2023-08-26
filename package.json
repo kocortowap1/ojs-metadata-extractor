@@ -14,5 +14,11 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "node-html-parser": "^6.1.6"
+  },
+  "pkg": {
+    "scripts": "build/**/*.js",
+    "assets": "views/**/*",
+    "targets": [ "node14-linux-arm64" ],
+    "outputPath": "dist"
   }
 }
