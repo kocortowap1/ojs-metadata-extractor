@@ -6,6 +6,7 @@ const fs = require('fs');
 
 const { ojsHTMLParser } = require('../../lib/htmlParser');
 const { getJournalAccreditation } = require('../../lib/journalAcreditation');
+const { getJournalIndexByDoi } = require('../../lib/journalIndexedBy');
 const router = express.Router();
 
 
@@ -28,16 +29,24 @@ router.post('/', async function (req, res, next) {
         } else {
             let parseResponse = ojsHTMLParser(request.data)
             response['status'] = true
-
+            response['indexed'] = []
+            if(parseResponse['citation_doi']){
+                const garudaIndex = await getJournalIndexByDoi(parseResponse['citation_doi'],'Garuda')
+                if(garudaIndex['status']){
+                    response['indexed'].push(garudaIndex)
+                }
+                // const DOAJIndex = await getJournalIndexByDoi(parseResponse['citation_doi'],'DOAJ')
+                // if(DOAJIndex['status']){
+                //     response['indexed'].push(DOAJIndex)
+                // }
+            }
+            //request to ARJUNA
             if(parseResponse['citation_issn']){
                 const reqSINTA = await getJournalAccreditation(parseResponse['citation_issn'])
-                // console.log(reqSINTA['data']['data'])
                 response['history_akreditasi'] = reqSINTA['data']['data']
-                // response['metadata']['citation_publisher'] = reqSINTA['data']['data'][0]['publisher'] 
             }
             response['metadata'] = ojsHTMLParser(request.data)
         }
-        console.log(response)
         res.send(response)
     } else {
         res.send({ status: false, message: 'Invalid Parameters' })

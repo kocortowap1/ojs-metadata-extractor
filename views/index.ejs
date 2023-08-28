@@ -218,6 +218,7 @@
     let objMeta = {};
     function onSubmitUrl(e) {
       e.preventDefault()
+      document.getElementById('result').style.visibility = 'hidden'
       document.getElementById('loader').style.visibility = 'visible'
       const inputEl = document.getElementById('input-url')
       postData(`/ojs`, { url: inputEl.value }).then((data) => {
