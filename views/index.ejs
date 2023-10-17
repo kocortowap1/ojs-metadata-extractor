@@ -173,7 +173,7 @@
           <h5 class="card-header">Artikel Index</h5>
           <div class="card-body">
             <!-- <h5 class="card-title">Fitur ini akan segera hadir</h5> -->
-            <a class="card-text" id="url-index" blank="_blank">URL Index tidak terdeteksi</a>
+            <a class="card-text" id="url-index" target="_blank">URL Index tidak terdeteksi</a>
             <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
             <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
           </div>
@@ -241,6 +241,7 @@
           if(data['indexed'].length){
             let urlIndexEl = document.getElementById('url-index')
             urlIndexEl.href = data['indexed'][0]['url_index']
+            urlIndexEl.
             urlIndexEl.innerHTML = `Artikel ini diindex oleh ${data['indexed'][0]['indexed_by']}`
           }
         } else {
