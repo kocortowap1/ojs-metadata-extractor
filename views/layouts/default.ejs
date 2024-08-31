@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kepegawaian</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <link rel="stylesheet" href="/stylesheets/bootstrap-icons/font/bootstrap-icons.min.css">
+    <script src="/javascripts/clipboard.min.js"></script>
+</head>
+
+<body>
+    <%- include('../ui/navbar'); -%>
+    <span onclick="initSister(event)" id="status-sister" class="badge bg-primary" style="cursor: pointer;">Primary</span>
+    <main class="px-2 py-4">
+        <%- body %>
+
+    </main>
+   
+    <script src="/javascripts/bootstrap.js"></script>
+    <script src="/javascripts/dosen-client.js"></script>
+</body>
+
+</html>

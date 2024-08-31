@@ -31,20 +31,20 @@ router.post('/', async function (req, res, next) {
             response['status'] = true
             response['indexed'] = []
             if(parseResponse['citation_doi']){
-                const garudaIndex = await getJournalIndexByDoi(parseResponse['citation_doi'],'Garuda')
-                if(garudaIndex['status']){
-                    response['indexed'].push(garudaIndex)
-                }
+                // const garudaIndex = await getJournalIndexByDoi(parseResponse['citation_doi'],'Garuda')
+                // if(garudaIndex['status']){
+                //     response['indexed'].push(garudaIndex)
+                // }
                 // const DOAJIndex = await getJournalIndexByDoi(parseResponse['citation_doi'],'DOAJ')
                 // if(DOAJIndex['status']){
                 //     response['indexed'].push(DOAJIndex)
                 // }
             }
             //request to ARJUNA
-            if(parseResponse['citation_issn']){
-                const reqSINTA = await getJournalAccreditation(parseResponse['citation_issn'])
-                response['history_akreditasi'] = reqSINTA['data']['data']
-            }
+            // if(parseResponse['citation_issn']){
+            //     const reqSINTA = await getJournalAccreditation(parseResponse['citation_issn'])
+            //     response['history_akreditasi'] = reqSINTA['data']['data']
+            // }
             response['metadata'] = ojsHTMLParser(request.data)
         }
         res.send(response)

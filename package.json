@@ -2,8 +2,8 @@
   "name": "express-ojs-meta",
   "version": "0.0.0",
   "private": true,
-  "main" : "./bin/www",
-  "bin" : "./bin/www",
+  "main": "./bin/www",
+  "bin": "./bin/www",
   "scripts": {
     "start": "nodemon ./bin/www"
   },
@@ -13,13 +13,22 @@
     "debug": "~2.6.9",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "node-html-parser": "^6.1.6"
   },
   "pkg": {
-    "assets": ["public/**/*","views/**/*","routes/**/*", "node_modules/**/axios/dist/node/axios.cjs", "bin/**/*"],
-    "targets": [ "node16-win-x64" ],
+    "assets": [
+      "public/**/*",
+      "views/**/*",
+      "routes/**/*",
+      "node_modules/**/axios/dist/node/axios.cjs",
+      "bin/**/*"
+    ],
+    "targets": [
+      "node16-win-x64"
+    ],
     "outputPath": "dist"
   }
 }
