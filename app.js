@@ -12,10 +12,8 @@ const sdmRouter = require('./routes/sdm');
 const ojsRouter = require('./routes/api/ojs');
 const dosenRouter = require('./routes/api/dosen');
 
-app.use('/api/ojs', ojsRouter);
-app.use('/api/dosen', sdmRouter)
 
-const viewDosen = require('./routes/sdm')
+
 
 // const appLayout = require('express-ejs-layouts')
 // app.use(appLayout)
@@ -31,9 +29,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/dosen', viewDosen);
+app.use('/dosen', sdmRouter);
 
-
+app.use('/api/ojs', ojsRouter);
+app.use('/api/dosen', dosenRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

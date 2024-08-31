@@ -1,0 +1,26 @@
+<%- include('../ui/headers'); -%>
+    <main>
+        <div class="card">
+            <div class="card-body">
+                <button class="btn btn-info" onclick="callDosen()">Tarik Data Dosen dari SISTER</button>
+                <div class="table-responsive" id="wrapper-sdm">
+                    <table class="table table-striped" id="table-sdm">
+                        <thead>
+                            <th></th>
+                            <th>NIDN</th>
+                            <th>NAMA</th>
+                            <th>STATUS</th>
+                        </thead>
+                        <tbody style="max-height: clamp(5em, 10vh, 250px); overflow: auto;" id="table-sdm-body">
+                            <tr>
+                                <td colspan="4"><em>Belum ada data Dosen</em></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </main>
+<%- include('../ui/footer'); -%>
