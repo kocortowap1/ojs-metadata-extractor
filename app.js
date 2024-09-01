@@ -11,7 +11,7 @@ const sdmRouter = require('./routes/sdm');
 
 const ojsRouter = require('./routes/api/ojs');
 const dosenRouter = require('./routes/api/dosen');
-
+const karilRouter = require('./routes/karil')
 
 
 
@@ -30,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/dosen', sdmRouter);
+app.use('/karil', karilRouter);
 
 app.use('/api/ojs', ojsRouter);
 app.use('/api/dosen', dosenRouter)
